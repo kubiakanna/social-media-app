@@ -89,12 +89,13 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                             {destination && (
                                 <a
                                     href={destination}
+                                    // how to stop propagation after clicking the link
                                     target='_blank'
                                     rel='noreferrer'
                                     className='bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md'
                                 >
                                     <BsFillArrowUpRightCircleFill />
-                                    {destination.length > 20 ? destination.slice(8, 20) : destination.slice(8)}
+                                    {destination.length > 25 ? destination.slice(12, 22) : destination.slice(12)}
                                 </a>
                             )}
                             {postedBy?._id === user.googleId && (
