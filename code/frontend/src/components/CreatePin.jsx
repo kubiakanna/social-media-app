@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { client } from '../client';
 import Spinner from './Spinner';
-import { categories } from '../utils/data';
+import { categories, acceptedFileTypes } from '../utils/utils';
 
 const CreatePin = ({ user }) => {
     const [title, setTitle] = useState('');
@@ -22,7 +22,7 @@ const CreatePin = ({ user }) => {
     const uploadImage = (e) => {
         const { type, name } = e.target.files[0];
 
-        if (type === 'image/png' || type === 'image/svg' || type === 'image/jpeg' || type === 'image/gif' || type === 'image/tiff') {
+        if (acceptedFileTypes.includes(type)) {
             setWrongImageType(false);
             setLoading(true);
 
