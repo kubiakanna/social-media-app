@@ -11,7 +11,7 @@ const Login = () => {
 
     const navigate = useNavigate();
     const responseGoogle = (response) => {
-        localStorage.setItem('user', JSON.stringify(response.profileObj))
+        localStorage.setItem('user', JSON.stringify(response.profileObj));
 
         const { name, googleId, imageUrl } = response.profileObj;
         
@@ -20,13 +20,13 @@ const Login = () => {
             _type: 'user',
             userName: name,
             image: imageUrl,
-        }
+        };
 
         client.createIfNotExists(doc)
             .then(() => {
-                navigate('/', { replace: true })
-            })
-    }
+                navigate('/', { replace: true });
+            });
+    };
 
     return (
         <div className='flex justify-start items-center flex-col h-screen'>
@@ -47,7 +47,7 @@ const Login = () => {
 
                     <div className='shadow-2xl'>
                         <GoogleLogin
-                            clientId={process.env.REACT_APP_GOOGLE_API_TOKEN}
+                            clientId={`${process.env.REACT_APP_GOOGLE_API_TOKEN}`}
                             render={(renderProps) => (
                                 <button
                                     type='button'

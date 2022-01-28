@@ -1,48 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import { MdDownloadForOffline } from 'react-icons/md';
 import { AiTwotoneDelete } from 'react-icons/ai';
 
 import { client, urlFor } from '../client';
 import { fetchUser } from '../utils/fetchUser';
+import { savePin } from '../utils/savePin';
 
 const Pin = ({ pin: { postedBy, image, _id, save } }) => {
     const [postHovered, setPostHovered] = useState(false);
     const navigate = useNavigate();
     const user = fetchUser();
-
-    const alreadySaved = save?.some((item) => item?.postedBy._id === user.googleId);
-
-    const savePin = (id) => {
-        if (!alreadySaved) {
-            client
-                .patch(id)
-                .setIfMissing({ save: [] })
-                .insert('after', 'save[-1]', [{
-                    _key: uuidv4(),
-                    userId: user.googleId,
-                    postedBy: {
-                        _type: 'postedBy',
-                        _ref: user.googleId
-                    }
-                }])
-                .commit()
-                .then(() => {
-                    window.location.reload();
-
-                })
-        } else {
-            const updatedSavedArr = save.filter((item) => item && item?.postedBy._id !== user.googleId);
-            client
-                .patch(id)
-                .insert('replace', 'save[0:]', [updatedSavedArr])
-                .commit()
-                .then(() => {
-                    window.location.reload();
-                })
-        }
-    }
+    const alreadySaved = save?.some(item => item?.postedBy._id === user?.googleId);
 
     const deletePin = (id) => {
         client
@@ -82,14 +51,14 @@ const Pin = ({ pin: { postedBy, image, _id, save } }) => {
                                     className='bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none'
                                     onClick={((e) => {
                                         e.stopPropagation();
-                                        savePin(_id);
+                                        savePin(_id, save);
                                     })}
                                 >
-                                    {alreadySaved ? `${(save?.filter((item) => item)).length} Saved` : 'Save'}
+                                    {alreadySaved ? `${(save?.filter(item => item)).length} Saved` : 'Save'}
                                 </button>
                         </div>
                         <div className='flex justify-between items-center gap-2 w-full'>
-                            {postedBy?._id === user.googleId && (
+                            {postedBy?._id === user?.googleId && (
                                 <button
                                     type='button'
                                     onClick={(e) => {
@@ -105,7 +74,7 @@ const Pin = ({ pin: { postedBy, image, _id, save } }) => {
                     </div>
                 )}
             </div>
-            <Link to={`user-profile/${postedBy?._id}`} className='flex gap-2 mt-2 items-center'>
+            <Link to={`/user-profile/${postedBy?._id}`} className='flex gap-2 mt-2 items-center'>
                 <img
                     className='w-8 h-8 rounded-full object-cover'   
                     src={postedBy?.image} 

@@ -7,6 +7,9 @@ import { client, urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/utils';
 import Spinner from './Spinner';
+import { savePin } from '../utils/savePin';
+import { fetchUser } from '../utils/fetchUser';
+
 
 const PinDetail = ({ user }) => {
     const [pins, setPins] = useState(null);
@@ -14,6 +17,9 @@ const PinDetail = ({ user }) => {
     const [comment, setComment] = useState('');
     const [addingComment, setAddingComment] = useState(false);
     const { pinId } = useParams();
+    const userInfo = fetchUser();
+    const alreadySaved = pinDetail?.save.some(item => item?.postedBy._id === userInfo?.googleId);
+
 
     const addComment = () => {
         if(comment) {
@@ -76,6 +82,18 @@ const PinDetail = ({ user }) => {
             </div>
             <div className='w-full p-5 flex-1 xl:min-w-620'>
                 <div className='flex items-center justify-between'>
+                        <div className='flex gap-2 items-center'>
+                            <button
+                                type='button'
+                                className='bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none'
+                                onClick={((e) => {
+                                    e.stopPropagation();
+                                    savePin(pinDetail?._id, pinDetail?.save);
+                                })}
+                            >
+                                {alreadySaved ? `${(pinDetail?.save?.filter(item => item)).length} Saved` : 'Save'}
+                            </button>
+                        </div>
                     <div className='flex gap-2 items-center'>
                         <a
                             href={`${pinDetail.image.asset.url}?dl=`}

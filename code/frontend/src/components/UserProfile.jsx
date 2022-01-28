@@ -10,7 +10,7 @@ import Spinner from './Spinner';
 
 const randomImage = 'https://source.unsplash.com/1600x900/?nature,photography,technology';
 
-const activeBtnStyles = 'bg-red-500 mx-2 text-white font-bold p-2 rounded-full w-20 outline-none';
+const activeBtnStyles = 'flex justify-center items-center text-center bg-red-500 mx-2 text-white font-bold p-2.5 rounded-full w-20 outline-none';
 const notActiveBtnStyles = 'bg-primary mx-2 text-black font-bold p-2 rounded-full w-20 outline-none'
 
 
@@ -98,7 +98,7 @@ const UserProfile = () => {
                             )}
                         </div>
                     </div>
-                    <div className='text-center mb-7'>
+                    <div className='flex justify-center items-center text-center mb-7'>
                         <button
                             type='button'
                             onClick={(e) => {

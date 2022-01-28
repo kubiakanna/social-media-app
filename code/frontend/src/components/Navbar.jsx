@@ -21,10 +21,10 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
                 />
             </div>
             <div className='flex gap-3'>
-                <Link to={`user-profile/${user?._id}`} className='hidden md:block'>
+                <Link to={`/user-profile/${user?._id}`} className='hidden md:block'>
                     <img src={user.image} alt='user' className='w-14 h-11 rounded-lg' />
                 </Link>
-                <Link to={'create-pin'} className='bg-black text-white rounded-lg w-14 h-11 flex justify-center items-center'>
+                <Link to={'/create-pin'} className='bg-black text-white rounded-lg w-14 h-11 flex justify-center items-center'>
                     <IoMdAdd />
                 </Link>
             </div>
