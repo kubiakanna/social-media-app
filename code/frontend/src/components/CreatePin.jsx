@@ -10,7 +10,6 @@ import { categories, acceptedFileTypes } from '../utils/utils';
 const CreatePin = ({ user }) => {
     const [title, setTitle] = useState('');
     const [about, setAbout] = useState('');
-    const [destination, setDestination] = useState('');
     const [loading, setLoading] = useState(false);
     const [fields, setFields] = useState(false);
     const [category, setCategory] = useState(null);
@@ -41,12 +40,11 @@ const CreatePin = ({ user }) => {
     }
 
     const savePin = () => {
-        if (title && about && destination && imageAsset?._id && category) {
+        if (title && about && imageAsset?._id && category) {
             const doc = {
                 _type: 'pin',
                 title,
                 about,
-                destination,
                 image: {
                     _type: 'image',
                     asset: {
@@ -146,15 +144,6 @@ const CreatePin = ({ user }) => {
                         className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2'
                     />
                     {about && <label htmlFor='about' className='outline-none tracking-wider text-sm text-gray-600'>About</label>}
-                    <input
-                        id='destination'
-                        type='text'
-                        value={destination}
-                        onChange={(e) => setDestination(e.target.value)}
-                        placeholder='Add a destination link'
-                        className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2'
-                    />
-                    {destination && <label htmlFor='destination' className='outline-none tracking-wider text-sm text-gray-600'>Link</label>}
                     <div className='flex flex-col'>
                         <div>
                             <p className='mb-2 font-semibold text-lg sm:text-xl'>Choose Pin Category</p>

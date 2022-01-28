@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { MdDownloadForOffline } from 'react-icons/md';
-import { AiTwotoneDelete, AiTwotoneEdit } from 'react-icons/ai';
-import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
+import { AiTwotoneDelete } from 'react-icons/ai';
 
 import { client, urlFor } from '../client';
 import { fetchUser } from '../utils/fetchUser';
 
-const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
+const Pin = ({ pin: { postedBy, image, _id, save } }) => {
     const [postHovered, setPostHovered] = useState(false);
     const navigate = useNavigate();
     const user = fetchUser();
 
-    const alreadySaved = save?.some((item) => item.postedBy._id === user.googleId);
+    const alreadySaved = save?.some((item) => item?.postedBy._id === user.googleId);
 
     const savePin = (id) => {
         if (!alreadySaved) {
@@ -28,6 +27,16 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                         _ref: user.googleId
                     }
                 }])
+                .commit()
+                .then(() => {
+                    window.location.reload();
+
+                })
+        } else {
+            const updatedSavedArr = save.filter((item) => item && item?.postedBy._id !== user.googleId);
+            client
+                .patch(id)
+                .insert('replace', 'save[0:]', [updatedSavedArr])
                 .commit()
                 .then(() => {
                     window.location.reload();
@@ -68,36 +77,18 @@ const Pin = ({ pin: { postedBy, image, _id, destination, save } }) => {
                                     <MdDownloadForOffline />
                                 </a>
                             </div>
-                            {alreadySaved ? (
-                                <button type='button' className='bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none'>
-                                    {save?.length} Saved
-                                </button>
-                            ) : (
                                 <button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        savePin(_id);
-                                    }}
                                     type='button'
                                     className='bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none'
+                                    onClick={((e) => {
+                                        e.stopPropagation();
+                                        savePin(_id);
+                                    })}
                                 >
-                                    Save
+                                    {alreadySaved ? `${(save?.filter((item) => item)).length} Saved` : 'Save'}
                                 </button>
-                            )}
                         </div>
                         <div className='flex justify-between items-center gap-2 w-full'>
-                            {destination && (
-                                <a
-                                    href={destination}
-                                    // how to stop propagation after clicking the link
-                                    target='_blank'
-                                    rel='noreferrer'
-                                    className='bg-white flex items-center gap-2 text-black font-bold p-2 pl-4 pr-4 rounded-full opacity-70 hover:opacity-100 hover:shadow-md'
-                                >
-                                    <BsFillArrowUpRightCircleFill />
-                                    {destination.length > 25 ? `${destination.slice(12, 22)}...` : destination.slice(12)}
-                                </a>
-                            )}
                             {postedBy?._id === user.googleId && (
                                 <button
                                     type='button'

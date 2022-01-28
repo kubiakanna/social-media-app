@@ -12,7 +12,6 @@ export const searchQuery = (searchTerm) => {
             }
         },
         _id,
-        destination,
         postedBy -> {
             _id,
             userName,
@@ -38,7 +37,6 @@ export const feedQuery = `*[_type == 'pin'] | order(_createAt desc) {
         }
     },
     _id,
-    destination,
     postedBy -> {
         _id,
         userName,
@@ -65,7 +63,6 @@ export const pinDetailQuery = (pinId) => {
     title, 
     about,
     category,
-    destination,
     postedBy->{
       _id,
       userName,
@@ -99,7 +96,6 @@ export const pinDetailMorePinQuery = (pin) => {
       }
     },
     _id,
-    destination,
     postedBy->{
       _id,
       userName,
@@ -125,7 +121,6 @@ export const userCreatedPinsQuery = (userId) => {
       }
     },
     _id,
-    destination,
     postedBy->{
       _id,
       userName,
@@ -150,7 +145,6 @@ export const userSavedPinsQuery = (userId) => {
       }
     },
     _id,
-    destination,
     postedBy->{
       _id,
       userName,
@@ -169,56 +163,44 @@ export const userSavedPinsQuery = (userId) => {
 
 export const categories = [
   {
-    name: 'Cars',
-    image: 'https://i.pinimg.com/750x/eb/47/44/eb4744eaa3b3ccd89749fa3470e2b0de.jpg',
+    name: 'Landscapes',
+    image: 'https://images.unsplash.com/photo-1536257104079-aa99c6460a5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
   },
   {
     name: 'Fitness',
-    image: 'https://i.pinimg.com/236x/25/14/29/251429345940a47490cc3d47dfe0a8eb.jpg',
+    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
   },
   {
-    name: 'Wallpaper',
-    image: 'https://i.pinimg.com/236x/03/48/b6/0348b65919fcbe1e4f559dc4feb0ee13.jpg',
-  },
-  {
-    name: 'Websites',
-    image: 'https://i.pinimg.com/750x/66/b1/29/66b1296d36598122e6a4c5452b5a7149.jpg',
-  },
-  {
-    name: 'Photo',
-    image: 'https://i.pinimg.com/236x/72/8c/b4/728cb43f48ca762a75da645c121e5c57.jpg',
+    name: 'Photography',
+    image: 'https://images.unsplash.com/photo-1548502499-ef49e8cf98d4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   },
   {
     name: 'Food',
-    image: 'https://i.pinimg.com/236x/7d/ef/15/7def15ac734837346dac01fad598fc87.jpg',
+    image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80',
   },
   {
     name: 'Nature',
-    image: 'https://i.pinimg.com/236x/b9/82/d4/b982d49a1edd984c4faef745fd1f8479.jpg',
+    image: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80',
   },
   {
     name: 'Art',
-    image: 'https://i.pinimg.com/736x/f4/e5/ba/f4e5ba22311039662dd253be33bf5f0e.jpg',
+    image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80',
   },
   {
     name: 'Travel',
-    image: 'https://i.pinimg.com/236x/fa/95/98/fa95986f2c408098531ca7cc78aee3a4.jpg',
-  },
-  {
-    name: 'Quotes',
-    image: 'https://i.pinimg.com/236x/46/7c/17/467c17277badb00b638f8ec4da89a358.jpg',
+    image: 'https://images.unsplash.com/photo-1530521954074-e64f6810b32d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   },
   {
     name: 'Cats',
-    image: 'https://i.pinimg.com/236x/6c/3c/52/6c3c529e8dadc7cffc4fddedd4caabe1.jpg',
+    image: 'https://images.unsplash.com/photo-1548546738-8509cb246ed3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1287&q=80',
   },
   {
     name: 'Dogs',
-    image: 'https://i.pinimg.com/236x/1b/c8/30/1bc83077e363db1a394bf6a64b071e9f.jpg',
+    image: 'https://images.unsplash.com/photo-1552053831-71594a27632d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1262&q=80',
   },
   {
     name: 'Others',
-    image: 'https://i.pinimg.com/236x/2e/63/c8/2e63c82dfd49aca8dccf9de3f57e8588.jpg',
+    image: '',
   },
 ];
 

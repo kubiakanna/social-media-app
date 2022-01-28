@@ -86,13 +86,6 @@ const PinDetail = ({ user }) => {
                             <MdDownloadForOffline />
                         </a>
                     </div>
-                    <a
-                        href={pinDetail.destination}
-                        target='_blank'
-                        rel='noreferrer'
-                    >
-                        {(pinDetail.destination).slice(12, 22)}
-                    </a>
                 </div>
                 <div>
                     <h1 className='text-4xl font-bold break-words mt-3'>
@@ -103,7 +96,7 @@ const PinDetail = ({ user }) => {
                     </p>
                 </div>
                 <Link
-                    to={`user-profile/${pinDetail.postedBy?._id}`}
+                    to={`/user-profile/${pinDetail.postedBy?._id}`}
                     className='flex gap-2 mt-5 items-center bg-white rounded-lg'>
                     <img
                         className='w-8 h-8 rounded-full object-cover'
@@ -134,15 +127,18 @@ const PinDetail = ({ user }) => {
                     ))}
                 </div>
                 <div className='flex flex-wrap mt-6 gap-3'>
+                {user && (
                 <Link
-                    to={`user-profile/${pinDetail.postedBy?._id}`}
+                    to={`/user-profile/${user._id}`}
+                    className='w-10 h-10 rounded-full cursor-pointer'
                 >
                     <img
-                        className='w-10 h-10 rounded-full cursor-pointer'
-                        src={pinDetail.postedBy?.image}
+                        src={user.image}
+                        className='w-10 h-10 rounded-full'
                         alt='user-profile'
                     />
                 </Link>
+            )}
                 <input
                     className='flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300'
                     type='text'
@@ -161,14 +157,14 @@ const PinDetail = ({ user }) => {
             </div>
         </div>
         {pins?.length > 0 ? (
-            <>
+            <div>
                 <h2 className='text-center font-bold text-2xl mt-8 mb-4'>
                     More like this
                 </h2>
                 <MasonryLayout pins={ pins } />
-            </>
+            </div>
         ) : (
-            <Spinner message='Loading more pins...' />
+            <></>
         )}
         </>
     )
