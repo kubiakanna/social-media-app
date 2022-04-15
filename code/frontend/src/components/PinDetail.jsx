@@ -18,7 +18,7 @@ const PinDetail = ({ user }) => {
     const [addingComment, setAddingComment] = useState(false);
     const { pinId } = useParams();
     const userInfo = fetchUser();
-    const alreadySaved = pinDetail?.save.some(item => item?.postedBy._id === userInfo?.googleId);
+    const alreadySaved = pinDetail?.save?.some(item => item?.postedBy?._id === userInfo?.googleId);
 
 
     const addComment = () => {
@@ -157,12 +157,13 @@ const PinDetail = ({ user }) => {
                     />
                 </Link>
             )}
-                <input
-                    className='flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300'
+                <textarea
+                    className='flex-1 text-wrap border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300'
                     type='text'
                     placeholder='Add a comment'
                     value={comment}
                     onChange={(e) => setComment(e.target.value) }
+                    maxLength = "100"
                 />
                 <button
                     type='button'

@@ -123,6 +123,7 @@ const CreatePin = ({ user }) => {
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder='Add your title here'
                         className='outline-none text-xl sm:text-2xl font-bold border-b-2 border-gray-200 p-2'
+                        maxLength = "30"
                     />
                     {title && <label htmlFor='title' className='outline-none tracking-wider text-md text-gray-600'>Title</label>}
                     {user && (
@@ -142,6 +143,7 @@ const CreatePin = ({ user }) => {
                         onChange={(e) => setAbout(e.target.value)}
                         placeholder='What is your pin about?'
                         className='outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2'
+                        maxLength = "60"
                     />
                     {about && <label htmlFor='about' className='outline-none tracking-wider text-sm text-gray-600'>About</label>}
                     <div className='flex flex-col'>

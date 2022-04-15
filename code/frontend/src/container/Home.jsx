@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 
 import { Sidebar, UserProfile } from '../components';
 import Pins from './Pins';
@@ -15,6 +15,7 @@ const Home = () => {
     const [toggleSidebar, setToggleSidebar] = useState(false);
     const [user, setUser] = useState(null);
     const scrollRef = useRef(null);
+    const navigate = useNavigate();
 
     const userInfo = fetchUser();
 
@@ -30,6 +31,10 @@ const Home = () => {
     useEffect(() => {
         scrollRef.current.scrollTo(0, 0);
     }, [])
+
+    useEffect(() => {
+        if(!userInfo) navigate('/login');
+    }, []);
 
     return (
         <div className='flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out'>
